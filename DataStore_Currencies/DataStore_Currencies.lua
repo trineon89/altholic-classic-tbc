@@ -23,12 +23,13 @@ local bit64 = LibStub("LibBit64")
 local accountWideCurrencies = {}
 
 local function ListenTo(eventName, callback)
-	if addon.ListenTo then
+	if type(addon.ListenTo) == "function" then
 		addon:ListenTo(eventName, callback)
 	else
 		AddonFactory:ListenToEvent(addon, eventName, callback)
 	end
 end
+
 
 local headersState
 local headerCount
