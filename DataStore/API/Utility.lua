@@ -102,6 +102,10 @@ end
 
 -- ** Set & List **
 function addon:CreateSetAndList(container)
+	if not container then
+		container = {}
+	end
+
 	container.Set = container.Set or {}
 	container.List = container.List or {}
 	container.Count = container.Count or 0
