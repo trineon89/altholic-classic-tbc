@@ -17,6 +17,53 @@ local ns = addon.Tabs.Search		-- ns = namespace
 local currentClass
 local currentSubClass
 
+local function GetItemClassName(classID)
+	if C_Item and C_Item.GetItemClassInfo then
+		return C_Item.GetItemClassInfo(classID)
+	end
+	if GetItemClassInfo then
+		return GetItemClassInfo(classID)
+	end
+end
+
+local function GetItemSubClassName(classID, subClassID)
+	if C_Item and C_Item.GetItemSubClassInfo then
+		return C_Item.GetItemSubClassInfo(classID, subClassID)
+	end
+	if GetItemSubClassInfo then
+		return GetItemSubClassInfo(classID, subClassID)
+	end
+end
+
+local function GetAuctionSubClasses(classID)
+	if C_AuctionHouse and C_AuctionHouse.GetAuctionItemSubClasses then
+		local results = {}
+		local subClasses = C_AuctionHouse.GetAuctionItemSubClasses(classID) or {}
+		for _, subClassID in ipairs(subClasses) do
+			table.insert(results, {
+				id = subClassID,
+				name = GetItemSubClassName(classID, subClassID),
+			})
+		end
+		return results
+	end
+
+	if GetAuctionItemSubClasses then
+		local raw = { GetAuctionItemSubClasses(classID) }
+		if type(raw[1]) == "number" then
+			table.remove(raw, 1)
+		end
+
+		local results = {}
+		for _, name in ipairs(raw) do
+			table.insert(results, { name = name })
+		end
+		return results
+	end
+
+	return {}
+end
+
 -- from Blizzard_AuctionData.lua & LuaEnum.lua
 -- Note : review this later on, I suspect Blizzard will change this again
 local categories = {
@@ -33,7 +80,7 @@ local categories = {
 			LE_ITEM_WEAPON_FISHINGPOLE,
 		},
 		--]]
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon),
 		isCollapsed = true,
 	},
 	{
@@ -45,67 +92,67 @@ local categories = {
 			LE_ITEM_ARMOR_GENERIC, LE_ITEM_ARMOR_SHIELD, LE_ITEM_ARMOR_COSMETIC,
 		},
 		--]]
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_CONTAINERS,
 		class = LE_ITEM_CLASS_CONTAINER or Enum.ItemClass.Container,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_CONTAINER or Enum.ItemClass.Container),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_CONTAINER or Enum.ItemClass.Container),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_GEMS,
 		class = LE_ITEM_CLASS_GEM or Enum.ItemClass.Gem,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_GEM or Enum.ItemClass.Gem),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_GEM or Enum.ItemClass.Gem),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_ITEM_ENHANCEMENT,
 		class = LE_ITEM_CLASS_ITEM_ENHANCEMENT or Enum.ItemClass.ItemEnhancement,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_ITEM_ENHANCEMENT or Enum.ItemClass.ItemEnhancement),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_ITEM_ENHANCEMENT or Enum.ItemClass.ItemEnhancement),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_CONSUMABLES,
 		class = LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_GLYPHS,
 		class = LE_ITEM_CLASS_GLYPH or Enum.ItemClass.Glyph,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_GLYPH or Enum.ItemClass.Glyph),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_GLYPH or Enum.ItemClass.Glyph),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_TRADE_GOODS,
 		class = LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods) or {},
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_RECIPES,
 		class = LE_ITEM_CLASS_RECIPE or Enum.ItemClass.Recipe,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_RECIPE or Enum.ItemClass.Recipe),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_RECIPE or Enum.ItemClass.Recipe),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_BATTLE_PETS,
 		class = LE_ITEM_CLASS_BATTLEPET or Enum.ItemClass.Battlepet,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_BATTLEPET or Enum.ItemClass.Battlepet),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_BATTLEPET or Enum.ItemClass.Battlepet),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_QUEST_ITEMS,
 		class = LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem),
 		isCollapsed = true,
 	},
 	{
 		name = AUCTION_CATEGORY_MISCELLANEOUS,
 		class = LE_ITEM_CLASS_MISCELLANEOUS or Enum.ItemClass.Miscellaneous,
-		subClasses = C_AuctionHouse.GetAuctionItemSubClasses(LE_ITEM_CLASS_MISCELLANEOUS or Enum.ItemClass.Miscellaneous),
+		subClasses = GetAuctionSubClasses(LE_ITEM_CLASS_MISCELLANEOUS or Enum.ItemClass.Miscellaneous),
 		isCollapsed = true,
 	},
 }
@@ -121,12 +168,13 @@ local function Item_OnClick(frame)
 	local category = categories[frame.itemTypeIndex]
 	local class = category.class
 	local subClass = category.subClasses[frame.itemSubTypeIndex]
+	local subClassName = subClass and subClass.name or GetItemSubClassName(class, subClass and subClass.id)
 	
 	-- 1005 = class 1, sub 5
 	highlightIndex = (frame.itemTypeIndex * 1000) + frame.itemSubTypeIndex
 	ns:Update()
 	
-	addon.Search:FindItem(C_Item.GetItemClassInfo(class), C_Item.GetItemSubClassInfo(class, subClass))
+	addon.Search:FindItem(GetItemClassName(class), subClassName)
 end
 
 function ns:OnLoad()
@@ -195,8 +243,9 @@ function ns:Update()
 				local category = categories[p.parentIndex]
 				local class = category.class
 				local subClass = category.subClasses[p.dataIndex]
+				local subClassName = subClass and subClass.name or GetItemSubClassName(class, subClass and subClass.id)
 
-				menuButton.Text:SetText("|cFFBBFFBB   " .. C_Item.GetItemSubClassInfo(class, subClass))
+				menuButton.Text:SetText("|cFFBBFFBB   " .. (subClassName or ""))
 				menuButton:SetScript("OnClick", Item_OnClick)
 				menuButton.itemTypeIndex = p.parentIndex
 				menuButton.itemSubTypeIndex = p.dataIndex

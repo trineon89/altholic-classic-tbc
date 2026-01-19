@@ -21,8 +21,8 @@ addon:Service("AltoholicUI.EventsList", { "AltoholicUI.Formatter", function(Form
 		timeTable.min = tonumber(minute)
 
 		local gap = 0
-		if DataStore_Agenda then
-			gap = DataStore:GetClientServerTimeGap()
+		if DataStore_Agenda and DataStore.GetClientServerTimeGap then
+			gap = DataStore:GetClientServerTimeGap() or 0
 		end
 		
 		return difftime(time(timeTable), time() + gap)	-- in seconds
@@ -407,7 +407,10 @@ addon:Service("AltoholicUI.Events", { "AltoholicUI.EventsList", function(EventsL
 	local function BuildList()
 		EventsList.Initialize()
 		
-		local timeGap = DataStore:GetClientServerTimeGap() or 0
+		local timeGap = 0
+		if DataStore.GetClientServerTimeGap then
+			timeGap = DataStore:GetClientServerTimeGap() or 0
+		end
 		
 		for account in pairs(DataStore:GetAccounts()) do
 			for realm in pairs(DataStore:GetRealms(account)) do
@@ -550,4 +553,3 @@ addon:Service("AltoholicUI.Events", { "AltoholicUI.EventsList", function(EventsL
 		GetList = function() return EventsList.GetEvents() end,
 	}
 end})
-

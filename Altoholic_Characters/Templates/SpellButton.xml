@@ -6,12 +6,9 @@
 		<Size x="37" y="37" />
 		<Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" inherits="Spellbook-EmptySlot">
-					<Anchors>
-						<Anchor point="CENTER"/>
-					</Anchors>
-				</Texture>
-				<Texture parentKey="TextBackground" inherits="Spellbook-TextBackground">
+				<Texture parentKey="Background" file="Interface\Spellbook\Spellbook-EmptySlot" setAllPoints="true"/>
+				<Texture parentKey="TextBackground" file="Interface\Spellbook\Spellbook-TextBackground">
+					<Size x="145" y="17" />
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeKey="$parent.Background" relativePoint="TOPRIGHT" x="-4" y="-5"/>
 					</Anchors>
@@ -33,11 +30,7 @@
 				</FontString>
 			</Layer>
 			<Layer level="OVERLAY" textureSubLevel="-1">
-				<Texture parentKey="Slot" inherits="Spellbook-SlotFrame">
-					<Anchors>
-						<Anchor point="CENTER" x="1.5"/>
-					</Anchors>
-				</Texture>
+				<Texture parentKey="Slot" file="Interface\Spellbook\Spellbook-SlotFrame" setAllPoints="true"/>
 			</Layer>
 		</Layers>
 		<Scripts>
