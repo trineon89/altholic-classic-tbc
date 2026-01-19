@@ -11,7 +11,7 @@
 
 ## Author: Thaoky (EU-Marécages de Zangar)
 ## Version: 5.5.003
-## Dependencies: AddonFactory, DataStore, DataStore_Achievements, DataStore_Agenda, DataStore_Auctions, DataStore_Characters, DataStore_Containers, DataStore_Crafts, DataStore_Currencies, DataStore_Inventory, DataStore_Mails, DataStore_Quests, DataStore_Reputations, DataStore_Spells, DataStore_Talents
+## Dependencies: AddonFactory, DataStore, DataStore_Agenda, DataStore_Auctions, DataStore_Characters, DataStore_Containers, DataStore_Crafts, DataStore_Currencies, DataStore_Inventory, DataStore_Mails, DataStore_Quests, DataStore_Reputations, DataStore_Spells, DataStore_Talents
 ## SavedVariables: Altoholic_UI_Options, Altoholic_Tooltip_Options, Altoholic_Sharing_Options, Altoholic_Calendar_Options
 
 Embeds.xml
