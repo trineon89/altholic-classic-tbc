@@ -9,7 +9,6 @@ local registeredMethods = {}
 
 local modulesList = {
 	["DataStore"] = true,
-	["DataStore_Achievements"] = true,
 	["DataStore_Agenda"] = true,
 	["DataStore_Auctions"] = true,
 	["DataStore_Characters"] = true,
@@ -346,7 +345,6 @@ local sharedTables = {
 		-- "DataStore_CharacterGuilds", 
 		-- "DataStore_AltGroups", "DataStore_ConnectedRealms", "DataStore_RealmNames"
 	},
-	DataStore_Achievements = { "DataStore_Achievements_Characters"	},
 	DataStore_Auctions = { "DataStore_Auctions_Characters", "DataStore_Auctions_AuctionsList", "DataStore_Auctions_BidsList" },
 	DataStore_Characters = { "DataStore_Characters_Info" },
 	DataStore_Containers = { 
@@ -457,4 +455,3 @@ function addon:ImportCharacter(key, faction, guild)
 		end
 	end)
 end
-
