@@ -28,6 +28,15 @@ local MAX_ALT_LEVEL = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
 	and MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()]
 	or MAX_LEVEL_INTERNAL
 
+local function InitOptions()
+	if options then return end
+
+	options = DataStore:SetDefaults("DataStore_Characters_Options", {
+		RequestPlayTime = true,			-- Request play time at logon
+		HideRealPlayTime = false,		-- Hide real play time to client addons (= return 0 instead of real value)
+	})
+end
+
 
 -- *** Scanning functions ***
 local function ScanBaseInfo()
@@ -475,16 +484,14 @@ AddonFactory:OnAddonLoaded(addonName, function()
 	
 	thisCharacter = DataStore:GetCharacterDB("DataStore_Characters_Info", true)
 	guildRanks = DataStore_Characters_GuildRanks
+	InitOptions()
 	
 	-- Some players seem not to get a proper PLAYER_ALIVE event ..
 	ScanBaseInfo()
 end)
 
 AddonFactory:OnPlayerLogin(function()
-	options = DataStore:SetDefaults("DataStore_Characters_Options", {
-		RequestPlayTime = true,			-- Request play time at logon
-		HideRealPlayTime = false,		-- Hide real play time to client addons (= return 0 instead of real value)
-	})	
+	InitOptions()
 	
 	addon:ListenTo("PLAYER_ENTERING_WORLD", OnPlayerAlive)
 	addon:ListenTo("PLAYER_ALIVE", OnPlayerAlive)

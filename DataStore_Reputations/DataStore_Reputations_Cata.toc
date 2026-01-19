@@ -1,4 +1,4 @@
-## Interface: 40402
+## Interface: 20504
 ## Title: DataStore_Reputations
 ## IconTexture: Interface\Icons\garrison_building_storehouse
 
