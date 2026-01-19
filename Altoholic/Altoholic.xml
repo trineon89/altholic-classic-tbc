@@ -140,12 +140,12 @@
 					<KeyValue key="context" value="Guild" />
 				</KeyValues>
 			</Button>
-			<Button name="$parentTab5" inherits="AltoTabTemplate" id="5" text="ACHIEVEMENT_BUTTON">
+			<Button name="$parentTab5" inherits="AltoTabTemplate" id="5">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parentTab4" relativePoint="TOPRIGHT" x="-8" y="0" />
 				</Anchors>
 				<KeyValues>
-					<KeyValue key="context" value="Achievements" />
+					<KeyValue key="context" value="Agenda" />
 				</KeyValues>
 			</Button>
 			<Button name="$parentTab6" inherits="AltoTabTemplate" id="6">
@@ -153,20 +153,12 @@
 					<Anchor point="TOPLEFT" relativeTo="$parentTab5" relativePoint="TOPRIGHT" x="-8" y="0" />
 				</Anchors>
 				<KeyValues>
-					<KeyValue key="context" value="Agenda" />
-				</KeyValues>
-			</Button>
-			<Button name="$parentTab7" inherits="AltoTabTemplate" id="7">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parentTab6" relativePoint="TOPRIGHT" x="-8" y="0" />
-				</Anchors>
-				<KeyValues>
 					<KeyValue key="context" value="Grids" />
 				</KeyValues>
 			</Button>
-			<Button name="$parentTab8" inherits="AltoTabTemplate" id="8" text="OPTIONS">
+			<Button name="$parentTab7" inherits="AltoTabTemplate" id="7" text="OPTIONS">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parentTab7" relativePoint="TOPRIGHT" x="-8" y="0" />
+					<Anchor point="TOPLEFT" relativeTo="$parentTab6" relativePoint="TOPRIGHT" x="-8" y="0" />
 				</Anchors>
 				<KeyValues>
 					<KeyValue key="context" value="Options" />

@@ -9,7 +9,6 @@ local addonList = {
 	"Altoholic_Characters",
 	"Altoholic_Search",
 	"Altoholic_Guild",
-	"Altoholic_Achievements",
 	"Altoholic_Agenda",
 	"Altoholic_Grids",
 }
