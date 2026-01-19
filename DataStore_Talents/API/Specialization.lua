@@ -12,6 +12,9 @@ local isMists = LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_MISTS_OF_PANDARIA
 -- *** Scanning functions ***
 local function GetSpecInfo_Retail()
 	local specID = C_SpecializationInfo.GetSpecialization()
+	if not specID then
+		return 0, "", 0
+	end
 	local _, specName, _, _, role = C_SpecializationInfo.GetSpecializationInfo(specID)
 
 	local roleID = DataStore:StoreToSetAndList(specInfos.Roles, role)
@@ -49,7 +52,13 @@ local function ScanSpecialization()
 		specID, specName, roleID = GetSpecInfo_Cataclysm()
 	end
 	
-	local nameID = DataStore:StoreToSetAndList(specInfos.Names, specName)
+	specID = specID or 0
+	roleID = roleID or 0
+
+	local nameID = 0
+	if specName and specName ~= "" then
+		nameID = DataStore:StoreToSetAndList(specInfos.Names, specName)
+	end
 	
 	specializations[DataStore.ThisCharID] = specID 	-- bits 0-2 : active spec index
 		+ bit64:LeftShift(roleID, 3)						-- bits 3-4 : role id (damage/tank/heal)
