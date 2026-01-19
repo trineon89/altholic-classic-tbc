@@ -24,8 +24,8 @@ local function InitLocalization()
 
 	AltoholicFrameTab1:SetText(L["Summary"])
 	AltoholicFrameTab2:SetText(L["Characters"])
-	AltoholicFrameTab6:SetText(L["Agenda"])
-	AltoholicFrameTab7:SetText(L["Grids"])
+	AltoholicFrameTab5:SetText(L["Agenda"])
+	AltoholicFrameTab6:SetText(L["Grids"])
 	
 	AltoAccountSharingName:SetText(L["Account Name"])
 	AltoAccountSharingText1:SetText(L["Send account sharing request to:"])
@@ -318,7 +318,7 @@ AddonFactory:OnPlayerLogin(function()
 	Orig_MerchantFrame_UpdateMerchantInfo = MerchantFrame_UpdateMerchantInfo
 	MerchantFrame_UpdateMerchantInfo = MerchantFrame_UpdateMerchantInfoHook
 	
-	AltoholicFrameName:SetText(format("Altoholic |cFF00FF98Mists of Pandaria|r Classic %s%s|r by %sThaoky", colors.white, addon.Version, colors.classMage))
+	AltoholicFrameName:SetText(format("Altoholic |cFF00FF98TBC Anniversary|r Classic %s%s|r by %sThaoky", colors.white, addon.Version, colors.classMage))
 
 	-- local realm = GetRealmName()
 	-- local player = UnitName("player")

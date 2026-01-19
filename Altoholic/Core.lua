@@ -408,16 +408,15 @@ addon.TradeSkills = {
 }
 
 -- ** Tabs **
-local tabList = {
-	"Summary",
-	"Characters",
-	"Search",
-	"Guild",
-	"Achievements",
-	"Agenda",
-	"Grids",
-	"Options",
-}
+	local tabList = {
+		"Summary",
+		"Characters",
+		"Search",
+		"Guild",
+		"Agenda",
+		"Grids",
+		"Options",
+	}
 
 local frameToID = {}
 for index, name in ipairs(tabList) do
@@ -461,7 +460,7 @@ function addon.Tabs:OnClick(index)
 	self:HideAll()
 	self.current = index
 	
-	if index >= 1 and index <= 8 then
+	if index >= 1 and index <= 7 then
 		local moduleName = format("%s_%s", addonName, tabList[index])
 		SafeLoadAddOn(moduleName)		-- make this part a bit more generic once we'll have more LoD parts
 		

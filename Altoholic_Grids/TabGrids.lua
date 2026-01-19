@@ -41,6 +41,10 @@ addon:Controller("AltoholicUI.TabGrids", { "AltoholicUI.ColumnOptions", function
 		end,
 		Update = function(frame)
 			local account, realm = frame.SelectRealm:GetCurrentRealm()
+			if not account or not realm then
+				frame.SelectRealm:SetCurrentRealm(GetRealmName())
+				account, realm = frame.SelectRealm:GetCurrentRealm()
+			end
 			frame.ClassIcons:Update(account, realm)
 
 			local grids = AltoholicFrameGrids
@@ -52,6 +56,13 @@ addon:Controller("AltoholicUI.TabGrids", { "AltoholicUI.ColumnOptions", function
 			frame:SetStatus("")
 			
 			local obj = gridCallbacks[frame.currentGridID]	-- point to the callbacks of the current object (equipment, tabards, ..)
+			if not obj then
+				frame.currentGridID = next(gridCallbacks)
+				obj = gridCallbacks[frame.currentGridID]
+				if not obj then
+					return
+				end
+			end
 			obj:OnUpdate()
 			
 			local size = obj:GetSize()
@@ -71,7 +82,7 @@ addon:Controller("AltoholicUI.TabGrids", { "AltoholicUI.ColumnOptions", function
 						itemButton = rowFrame["Item"..colIndex]
 						itemButton.IconBorder:Hide()
 
-						character = Options.GetColumnKey(Altoholic_GridsTab_Columns, account, realm, colIndex)
+						local character = Options.GetColumnKey(Altoholic_GridsTab_Columns, account, realm, colIndex)
 						
 						if character then
 							itemButton:SetScript("OnEnter", obj.OnEnter)
