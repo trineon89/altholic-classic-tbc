@@ -385,10 +385,12 @@ addon:Service("AltoholicUI.Events", { "AltoholicUI.EventsList", function(EventsL
 					end
 					
 					-- Other timers (like mysterious egg, etc..)
-					local num = DataStore:GetNumItemCooldowns(character) or 0
-					for i = num, 1, -1 do
-						if DataStore:HasItemCooldownExpired(character, i) then
-							DataStore:DeleteItemCooldown(character, i)
+					if DataStore.GetNumItemCooldowns then
+						local num = DataStore:GetNumItemCooldowns(character) or 0
+						for i = num, 1, -1 do
+							if DataStore:HasItemCooldownExpired(character, i) then
+								DataStore:DeleteItemCooldown(character, i)
+							end
 						end
 					end
 					
@@ -468,18 +470,20 @@ addon:Service("AltoholicUI.Events", { "AltoholicUI.EventsList", function(EventsL
 					end
 					
 					-- Other timers (like mysterious egg, etc..)
-					num = DataStore:GetNumItemCooldowns(character) or 0
-					for i = 1, num do
-						local _, lastCheck, duration = DataStore:GetItemCooldownInfo(character, i)
-						if duration == nil then
-							duration = 0
+					if DataStore.GetNumItemCooldowns then
+						num = DataStore:GetNumItemCooldowns(character) or 0
+						for i = 1, num do
+							local _, lastCheck, duration = DataStore:GetItemCooldownInfo(character, i)
+							if duration == nil then
+								duration = 0
+							end
+							if lastCheck == nil then
+								lastCheck = 0
+							end
+							local expires = duration + lastCheck + timeGap
+							
+							EventsList.AddTimerLine(expires, characterName, realm, account, i)
 						end
-						if lastCheck == nil then
-							lastCheck = 0
-						end
-						local expires = duration + lastCheck + timeGap
-						
-						EventsList.AddTimerLine(expires, characterName, realm, account, i)
 					end
 				end
 			end
