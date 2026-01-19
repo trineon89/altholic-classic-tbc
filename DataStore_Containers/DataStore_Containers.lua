@@ -363,17 +363,20 @@ if isRetail then
 	-- end
 
 else
+	local containerClass = LE_ITEM_CLASS_CONTAINER or (Enum and Enum.ItemClass and Enum.ItemClass.Container) or 1
+	local GetSubClassInfo = (C_Item and C_Item.GetItemSubClassInfo) or GetItemSubClassInfo
+
 	bagTypeStrings = {
 		[1] = "Quiver",
 		[2] = "Ammo Pouch",
-		[4] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 1), -- "Soul Bag",
-		[8] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 7), -- "Leatherworking Bag",
-		[16] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 8), -- "Inscription Bag",
-		[32] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 2), -- "Herb Bag"
-		[64] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 3), -- "Enchanting Bag",
-		[128] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 4), -- "Engineering Bag",
-		[512] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 5), -- "Gem Bag",
-		[1024] = C_Item.GetItemSubClassInfo(LE_ITEM_CLASS_CONTAINER, 6), -- "Mining Bag",
+		[4] = GetSubClassInfo(containerClass, 1), -- "Soul Bag",
+		[8] = GetSubClassInfo(containerClass, 7), -- "Leatherworking Bag",
+		[16] = GetSubClassInfo(containerClass, 8), -- "Inscription Bag",
+		[32] = GetSubClassInfo(containerClass, 2), -- "Herb Bag"
+		[64] = GetSubClassInfo(containerClass, 3), -- "Enchanting Bag",
+		[128] = GetSubClassInfo(containerClass, 4), -- "Engineering Bag",
+		[512] = GetSubClassInfo(containerClass, 5), -- "Gem Bag",
+		[1024] = GetSubClassInfo(containerClass, 6), -- "Mining Bag",
 	}
 end
 
