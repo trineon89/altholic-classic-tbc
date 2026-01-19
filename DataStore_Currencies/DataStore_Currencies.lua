@@ -442,31 +442,16 @@ local currencyIDs = {
 	
 	-- epic
 	[29434] = true,		-- badge of justice
-	[45624] = true,		-- emblem of conquest
-	[40752] = true,		-- emblem of heroism
-	[47241] = true,		-- emblem of triumph
-	[40753] = true,		-- emblem of valor
-	[49426] = true,		-- emblem of frost (3.3)
-	
-	-- blue
-	[43228] = true,		-- stone keeper's shard
 	
 	-- green
 	[20560] = true,		-- alterac mark of honor
 	[20559] = true,		-- arathi basin mark of honor
-	[43016] = true,		-- dalaran cooking award
-	[41596] = true,		-- dalaran jewelcrafting token
 	[29024] = true,		-- eots mark of honor
-	[47395] = true,		-- isle of conquest mark of honor
-	[42425] = true,		-- strand of the ancients mark of honor
 	[20558] = true,		-- warsong gulch mark of honor
-	[43589] = true,		-- wintergrasp mark of honor
 	
 	-- white
 	[43307] = true,		-- arena points
-	[44990] = true,		-- champion's seal
 	[43308] = true,		-- honor points
-	[37836] = true,		-- venture coin
 }
 
 local function _GetCurrencyItemCount_NonRetail(character, searchedID)
@@ -536,6 +521,9 @@ AddonFactory:OnAddonLoaded(addonName, function()
 	
 	currenciesCatalog = DataStore:CreateSetAndList(DataStore_Currencies_Catalog)
 	currenciesHeaders = DataStore:CreateSetAndList(DataStore_Currencies_Headers)
+	
+	DataStore_Currencies_Info = DataStore_Currencies_Info or {}
+	DataStore_Currencies_Max = DataStore_Currencies_Max or {}
 	
 	currenciesInfo = DataStore_Currencies_Info
 	currenciesMax = DataStore_Currencies_Max	
