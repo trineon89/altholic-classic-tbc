@@ -114,6 +114,14 @@ function addon:CreateSetAndList(container)
 end
 
 function addon:StoreToSetAndList(container, value)
+	if value == nil then
+		return 0
+	end
+
+	if not container or not container.Set or not container.List or container.Count == nil then
+		container = addon:CreateSetAndList(container)
+	end
+
 	local set = container.Set
 
 	-- if this value is not yet referenced ..
