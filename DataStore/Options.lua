@@ -10,7 +10,6 @@ local API_IsAddOnLoaded = isClassic and IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
 local addonList = {
 	"DataStore",
-	"DataStore_Achievements",
 	"DataStore_Agenda",
 	"DataStore_Auctions",
 	"DataStore_Characters",

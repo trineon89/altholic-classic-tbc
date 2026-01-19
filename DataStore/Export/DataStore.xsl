@@ -44,36 +44,6 @@
 </xsl:template>
 
 
-<!-- DataStore Achievements -->
-<xsl:template match="Achievement">
-	<a href="http://www.wowhead.com/?achievement={@id}">Achievement <xsl:value-of select="@id"/></a>
-	Status :
-	<xsl:choose>
-		<xsl:when test="text() = 'true'">
-			Completed on <xsl:value-of select="@completionDate" />
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="text()"/>
-		</xsl:otherwise>
-	</xsl:choose>	
-	<br />
-</xsl:template>
-
-<xsl:template match="Achievements">
-	<table border="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td align="center">
-				<b><xsl:value-of select="name()" /></b>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<xsl:apply-templates select="Achievement" />
-			</td>
-		</tr>
-	</table>
-</xsl:template>
-
 <!-- DataStore Auctions -->
 <xsl:template match="Auction">
 	<tr>
