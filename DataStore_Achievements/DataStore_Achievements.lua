@@ -169,6 +169,7 @@ local function ScanSingleAchievement(id, isCompleted, month, day, year, flags, w
 end
 
 local function ScanAllAchievements()
+	if not GetCategoryList or not GetCategoryNumAchievements then return end
 	-- 2021/06/25 : do not wipe information about fully completed achievements, they will not go "uncompleted" any time soon.
 	-- The reason is that achievements that are both horde and alliance have different id's, and wiping would cancel the achievement
 	-- when logging on with the other faction. (especially for account-wide achievements)
@@ -182,7 +183,8 @@ local function ScanAllAchievements()
 	local achievementID, achCompleted, month, day, year, flags, wasEarnedByMe, earnedBy, _
 
 	for k, categoryID in ipairs(cats) do
-		for i = 1, GetCategoryNumAchievements(categoryID) do
+		local numAchievements = GetCategoryNumAchievements(categoryID) or 0
+		for i = 1, numAchievements do
 			achievementID, _, _, achCompleted, month, day, year, _, flags,_, _, _, wasEarnedByMe, earnedBy = GetAchievementInfo(categoryID, i)
 			if achievementID then
 				ScanSingleAchievement(achievementID, achCompleted, month, day, year, flags, wasEarnedByMe)

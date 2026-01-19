@@ -59,10 +59,15 @@ AddonFactory:OnPlayerLogin(function()
 	
 	local localizedSpells = {}		-- avoid infinite loop by storing in a temp table first
 	local localizedName
+	local GetSpellName = (C_Spell and C_Spell.GetSpellName) or GetSpellInfo
 	
 	for englishName, spellID in pairs(spellIDs) do
-		localizedName = C_Spell.GetSpellName(spellID)
-		localizedSpells[localizedName] = spellID
+		if spellID then
+			localizedName = GetSpellName(spellID)
+			if localizedName then
+				localizedSpells[localizedName] = spellID
+			end
+		end
 	end
 	
 	for name, id in pairs(localizedSpells) do
