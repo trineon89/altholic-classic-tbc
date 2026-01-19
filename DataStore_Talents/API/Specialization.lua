@@ -52,14 +52,13 @@ local function ScanSpecialization()
 		specID, specName, roleID = GetSpecInfo_Cataclysm()
 	end
 	
-	specID = tonumber(specID) or 0
-	roleID = tonumber(roleID) or 0
+	specID = specID or 0
+	roleID = roleID or 0
 
 	local nameID = 0
 	if specName and specName ~= "" then
 		nameID = DataStore:StoreToSetAndList(specInfos.Names, specName)
 	end
-	nameID = tonumber(nameID) or 0
 	
 	specializations[DataStore.ThisCharID] = specID 	-- bits 0-2 : active spec index
 		+ bit64:LeftShift(roleID, 3)						-- bits 3-4 : role id (damage/tank/heal)
