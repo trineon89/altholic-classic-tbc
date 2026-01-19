@@ -13,6 +13,10 @@ local currentTokenType
 local currentDDMText
 local dropDownFrame
 
+local function GetCurrencyHeadersData()
+	return DataStore_Currencies_Headers or { Set = {}, List = {} }
+end
+
 local function GetUsedHeaders()
 	-- local account, realm = AltoholicTabGrids:GetRealm()
 	
@@ -29,7 +33,8 @@ local function GetUsedHeaders()
 		-- end
 	-- end
 	
-	return DataStore:HashToSortedArray(DataStore_Currencies_Headers.Set)
+	local headersData = GetCurrencyHeadersData()
+	return DataStore:HashToSortedArray(headersData.Set or {})
 end
 
 local function GetUsedTokens(header)
@@ -78,7 +83,8 @@ local function OnTokenChange(self)
 
 	local categoryId = self.value
 	currentTokenType = categoryId
-	currentDDMText = DataStore_Currencies_Headers.List[categoryId]
+	local headersData = GetCurrencyHeadersData()
+	currentDDMText = (headersData.List and headersData.List[categoryId]) or self.text or tostring(categoryId)
 	AltoholicTabGrids:SetViewDDMText(currentDDMText)
 
 	isViewValid = nil
@@ -98,7 +104,8 @@ end
 
 local function DropDown_Initialize(frame)
 
-	for header, categoryId in pairs(DataStore_Currencies_Headers.Set) do		-- and add them to the DDM
+	local headersData = GetCurrencyHeadersData()
+	for header, categoryId in pairs(headersData.Set or {}) do		-- and add them to the DDM
 		frame:AddButton(header, categoryId, OnTokenChange)
 	end
 	frame:AddButton(L["All-in-one"], nil, OnTokensAllInOne)
