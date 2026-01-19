@@ -536,6 +536,7 @@ AddonFactory:OnAddonLoaded(addonName, function()
 end)
 
 AddonFactory:OnPlayerLogin(function()
+	ListenTo("PLAYER_ENTERING_WORLD", OnPlayerAlive)
 	ListenTo("PLAYER_ALIVE", OnPlayerAlive)
 	ListenTo("CURRENCY_DISPLAY_UPDATE", OnCurrencyDisplayUpdate)
 	
