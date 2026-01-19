@@ -1,4 +1,4 @@
-## Interface: 50500
+## Interface: 20504
 ## Title: DataStore_Characters
 ## IconTexture: Interface\Icons\garrison_building_storehouse
 
