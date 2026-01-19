@@ -19,6 +19,16 @@ local MSG_AIL_REPLY								= 2	-- reply
 local MSG_EQUIPMENT_REQUEST					= 3	-- request equipment ..
 local MSG_EQUIPMENT_TRANSFER					= 4	-- .. and send the data
 
+local function InitOptions()
+	if options then return end
+
+	options = DataStore:SetDefaults("DataStore_Inventory_Options", {
+		BroadcastAiL = true,							-- Broadcast professions at login or not
+		AutoClearGuildInventory = false,			-- Automatically clear guild members' inventory at login
+		EquipmentRequestNotification = false,	-- Get a warning when someone requests my equipment
+	})
+end
+
 -- *** Utility functions ***
 local function GetThisGuild()
 	local guildID = DataStore:GetCharacterGuildID(DataStore.ThisCharKey)
@@ -197,6 +207,7 @@ AddonFactory:OnAddonLoaded(addonName, function()
 	})
 	
 	guilds = DataStore_Inventory_Guilds
+	InitOptions()
 	
 	local guildID = DataStore:GetCharacterGuildID(DataStore.ThisCharKey)
 	if guildID then
@@ -211,11 +222,7 @@ AddonFactory:OnAddonLoaded(addonName, function()
 end)
 
 AddonFactory:OnPlayerLogin(function()
-	options = DataStore:SetDefaults("DataStore_Inventory_Options", {
-		BroadcastAiL = true,							-- Broadcast professions at login or not
-		AutoClearGuildInventory = false,			-- Automatically clear guild members' inventory at login
-		EquipmentRequestNotification = false,	-- Get a warning when someone requests my equipment
-	})
+	InitOptions()
 
 	if options.AutoClearGuildInventory then
 		ClearGuildInventories()

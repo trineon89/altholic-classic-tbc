@@ -11,4 +11,6 @@
 
 Locale.xml
 
+Options.xml
+
 DataStore_Characters.lua

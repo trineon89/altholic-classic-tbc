@@ -11,6 +11,8 @@
 
 locale.xml
 
+Options.xml
+
 DataStore_Quests.lua
 API\History.lua
 API\Progress.lua
