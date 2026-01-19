@@ -22,6 +22,14 @@ local bit64 = LibStub("LibBit64")
 
 local accountWideCurrencies = {}
 
+local function ListenTo(eventName, callback)
+	if type(addon.ListenTo) == "function" then
+		addon:ListenTo(eventName, callback)
+	else
+		AddonFactory:ListenToEvent(addon, eventName, callback)
+	end
+end
+
 local headersState
 local headerCount
 
@@ -539,15 +547,15 @@ AddonFactory:OnAddonLoaded(addonName, function()
 end)
 
 AddonFactory:OnPlayerLogin(function()
-	addon:ListenTo("PLAYER_ALIVE", OnPlayerAlive)
-	addon:ListenTo("CURRENCY_DISPLAY_UPDATE", OnCurrencyDisplayUpdate)
+	ListenTo("PLAYER_ALIVE", OnPlayerAlive)
+	ListenTo("CURRENCY_DISPLAY_UPDATE", OnCurrencyDisplayUpdate)
 	
 	-- Stop here for non-retail
 	if not isRetail then return end
 	
-	addon:ListenTo("CHAT_MSG_SYSTEM", OnChatMsgSystem)
-	addon:ListenTo("CURRENCY_TRANSFER_LOG_UPDATE", OnCurrencyTransferLogUpdate)
-	addon:ListenTo("PLAYER_INTERACTION_MANAGER_FRAME_SHOW", OnCovenantSanctumInteractionStarted)
+	ListenTo("CHAT_MSG_SYSTEM", OnChatMsgSystem)
+	ListenTo("CURRENCY_TRANSFER_LOG_UPDATE", OnCurrencyTransferLogUpdate)
+	ListenTo("PLAYER_INTERACTION_MANAGER_FRAME_SHOW", OnCovenantSanctumInteractionStarted)
 	
 	-- Get the names of account wide currencies
 	local currencyIDs = {

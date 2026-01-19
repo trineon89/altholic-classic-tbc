@@ -9,7 +9,6 @@ local registeredMethods = {}
 
 local modulesList = {
 	["DataStore"] = true,
-	["DataStore_Achievements"] = true,
 	["DataStore_Agenda"] = true,
 	["DataStore_Auctions"] = true,
 	["DataStore_Characters"] = true,
@@ -186,7 +185,7 @@ function addon:RegisterModule(options)
 		local prefix = format("%sDataStore%s: ", teal, white)
 
 		print(format("%sError triggered by : %s%s", prefix, yellow, moduleName))
-		print("You are using an unauthorized DataStore module that breaches the licensing rights of DataStore's sole author (Thaoky, EU-Marécages de Zangar).")
+		print("You are using an unauthorized DataStore module that breaches the licensing rights of DataStore's sole author (Thaoky, EU-MarÃ©cages de Zangar).")
 		print("The development and distribution of unauthorized DataStore modules outside of the official Altoholic package is prohibited by the 'All Rights Reserved' licensing terms.")
 		print("|cFFFFFF00What you should do :")
 		print(format("Leave the game and clear all Altoholic* and DataStore* folders from the %sInterface\\Addons%s folder, and make a manual download of the latest version of Altoholic from one of the two official sources (Curseforge and WoW Interface).", cyan, white))
@@ -231,6 +230,10 @@ end
 function addon:GetCharacterDB(dbName, initTable)
 	local db = _G[dbName]
 	local id = DataStore_CharacterIDs.Set[GetKey()]	
+
+	if not db then
+		db = InitSVTable(dbName)
+	end
 	
 	-- Initialize the table for this character
 	if initTable then
@@ -243,7 +246,10 @@ end
 function addon:SetDefaults(tableName, defaultValues)
 	-- Get the table
 	local t = _G[tableName]
-	if not t then return end
+	if not t then
+		t = {}
+		_G[tableName] = t
+	end
 	
 	for k, v in pairs(defaultValues) do
 		if type(t[k]) == "nil" then			-- If the key does not exist yet..
@@ -339,7 +345,6 @@ local sharedTables = {
 		-- "DataStore_CharacterGuilds", 
 		-- "DataStore_AltGroups", "DataStore_ConnectedRealms", "DataStore_RealmNames"
 	},
-	DataStore_Achievements = { "DataStore_Achievements_Characters"	},
 	DataStore_Auctions = { "DataStore_Auctions_Characters", "DataStore_Auctions_AuctionsList", "DataStore_Auctions_BidsList" },
 	DataStore_Characters = { "DataStore_Characters_Info" },
 	DataStore_Containers = { 

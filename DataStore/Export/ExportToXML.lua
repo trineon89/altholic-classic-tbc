@@ -307,50 +307,6 @@ local FactionUIDs = {
 
 -- ** Module specific export functions ** 
 local specificExport = {
-	["DataStore_Achievements"] = {
-		["Partial"] = function(file, level, source, character)
-				OpenXMLTag(file, level, "PartialAchievements")
-				for index, data in pairs(source) do
-					local attrib = format("id=\"%s\"", index)
-					SingleLineTag(file, level+1, "Achievement", data, attrib)
-				end
-				CloseXMLTag(file, level, "PartialAchievements")
-			end,
-		["Completed"] = function(file, level, source, character)
-				OpenXMLTag(file, level, "CompletedAchievements")
-				for index, data in pairs(source) do
-					local achievementID
-					
-					-- index [1] holds achievements 1-32
-					-- index [2] holds achievements 33-64
-					-- etc..
-					
-					for bitPos = 0, 31 do	-- parse the first 32 bits of the number
-						if TestBit(data, bitPos) then		-- if this bit is set, achievement is completed
-							
-							-- 32, 64, etc.. are stored in bit 0
-							-- [1]   =  32, 1, 2 , ..... , 31
-							-- [2]   =  64, 32, 33 , ..... , 63
-							
-							if bitPos == 0 then
-								achievementID = index * 32
-							else
-								achievementID = (index - 1) * 32
-								achievementID = achievementID + bitPos
-							end
-							
-							local attrib = format("id=\"%s\"", achievementID)
-							local month, day, year = character.CompletionDates[achievementID]:match("(%d+):(%d+):(%d+)")
-							year = tonumber(year) + 2000
-								
-							attrib = format("%s completionDate=\"%s/%s/%s\"", attrib, month, day, year)
-							SingleLineTag(file, level+1, "Achievement", "true", attrib)
-						end
-					end
-				end
-				CloseXMLTag(file, level, "CompletedAchievements")
-			end,
-	},
 	["DataStore_Auctions"] = {
 		["Auctions"] = function(file, level, source)
 				OpenXMLTag(file, level, "Auctions")
@@ -876,7 +832,6 @@ end
 
 local modules = {
 	"DataStore",
-	"DataStore_Achievements",
 	"DataStore_Auctions",
 	"DataStore_Characters",
 	"DataStore_Containers",
