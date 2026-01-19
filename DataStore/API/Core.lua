@@ -230,10 +230,6 @@ end
 function addon:GetCharacterDB(dbName, initTable)
 	local db = _G[dbName]
 	local id = DataStore_CharacterIDs.Set[GetKey()]	
-
-	if not db then
-		db = InitSVTable(dbName)
-	end
 	
 	-- Initialize the table for this character
 	if initTable then
@@ -246,10 +242,7 @@ end
 function addon:SetDefaults(tableName, defaultValues)
 	-- Get the table
 	local t = _G[tableName]
-	if not t then
-		t = {}
-		_G[tableName] = t
-	end
+	if not t then return end
 	
 	for k, v in pairs(defaultValues) do
 		if type(t[k]) == "nil" then			-- If the key does not exist yet..

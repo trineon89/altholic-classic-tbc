@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 110200, 20504
 ## Title: DataStore_Quests
 ## IconTexture: Interface\Icons\garrison_building_storehouse
 
@@ -10,8 +10,6 @@
 ## X-Category: Interface Enhancements
 
 locale.xml
-
-Options.xml
 
 DataStore_Quests.lua
 API\History.lua

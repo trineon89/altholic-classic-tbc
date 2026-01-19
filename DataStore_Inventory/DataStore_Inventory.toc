@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 110200, 20504
 ## Title: DataStore_Inventory
 ## IconTexture: Interface\Icons\garrison_building_storehouse
 
@@ -11,8 +11,6 @@
 
 Embeds.xml
 Locale.xml
-
-Options.xml
 
 DataStore_Inventory.lua
 API\GuildComm.lua
