@@ -10,6 +10,7 @@ local LCI = LibStub("LibCraftInfo-1.0")
 local MVC = LibStub("LibMVC-1.0")
 
 local THIS_ACCOUNT = "Default"
+local API_IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 
 local function InitLocalization()
 	-- this function's purpose is to initialize the text attribute of widgets created in XML.
@@ -146,9 +147,9 @@ function AuctionFrameBrowse_UpdateHook()
 	
 	if Altoholic_UI_Options.AHColorCoding == false then return end
 	
-	if IsAddOnLoaded("Auctioneer") and Auctioneer.ScanManager.IsScanning() then return end
+	if API_IsAddOnLoaded("Auctioneer") and Auctioneer.ScanManager.IsScanning() then return end
 
-	if IsAddOnLoaded("Auc-Advanced") then
+	if API_IsAddOnLoaded("Auc-Advanced") then
 		if AucAdvanced.Scan.IsScanning() then return end;
 		if AucAdvanced.Settings.GetSetting("util.compactui.activated") then
 			AuctioneerCompactUI = true
