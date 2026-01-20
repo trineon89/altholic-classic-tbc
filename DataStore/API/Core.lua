@@ -22,7 +22,10 @@ local modulesList = {
 	["DataStore_Talents"] = true
 }
 
-if WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+	-- Add burning crusade modules
+	modulesList["DataStore_Currencies"] = true
+elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
 	-- Add cataclysm modules
 	modulesList["DataStore_Currencies"] = true
 elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_MISTS_OF_PANDARIA then

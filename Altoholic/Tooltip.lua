@@ -175,10 +175,13 @@ local function GetRealmsList()
 end
 
 local function GetCharacterItemCount(character, searchedID)
+	local getVoidStorageItemCount = DataStore.GetMethodOwner and DataStore:GetMethodOwner("GetVoidStorageItemCount") and DataStore.GetVoidStorageItemCount
+	local getReagentBankItemCount = DataStore.GetMethodOwner and DataStore:GetMethodOwner("GetReagentBankItemCount") and DataStore.GetReagentBankItemCount
+
 	itemCounts[1], itemCounts[2] = DataStore:GetContainerItemCount(character, searchedID)
 	itemCounts[2] = itemCounts[2] + DataStore:GetPlayerBankItemCount(character, searchedID)
-	itemCounts[3] = DataStore:GetVoidStorageItemCount(character, searchedID)
-	itemCounts[4] = DataStore:GetReagentBankItemCount(character, searchedID)
+	itemCounts[3] = getVoidStorageItemCount and getVoidStorageItemCount(DataStore, character, searchedID) or 0
+	itemCounts[4] = getReagentBankItemCount and getReagentBankItemCount(DataStore, character, searchedID) or 0
 	itemCounts[5] = DataStore:GetAuctionHouseItemCount(character, searchedID)
 	itemCounts[6] = DataStore:GetInventoryItemCount(character, searchedID)
 	itemCounts[7] = DataStore:GetMailItemCount(character, searchedID)
