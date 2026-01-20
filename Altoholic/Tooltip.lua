@@ -178,7 +178,7 @@ local function GetCharacterItemCount(character, searchedID)
 	itemCounts[1], itemCounts[2] = DataStore:GetContainerItemCount(character, searchedID)
 	itemCounts[2] = itemCounts[2] + DataStore:GetPlayerBankItemCount(character, searchedID)
 	itemCounts[3] = DataStore.GetVoidStorageItemCount and DataStore:GetVoidStorageItemCount(character, searchedID) or 0
-	itemCounts[4] = DataStore.GetReagentBankItemCount and DataStore:GetReagentBankItemCount(character, searchedID) or 0
+	itemCounts[4] = DataStore:GetReagentBankItemCount(character, searchedID)
 	itemCounts[5] = DataStore:GetAuctionHouseItemCount(character, searchedID)
 	itemCounts[6] = DataStore:GetInventoryItemCount(character, searchedID)
 	itemCounts[7] = DataStore:GetMailItemCount(character, searchedID)
