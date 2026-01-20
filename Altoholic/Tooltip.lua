@@ -175,6 +175,9 @@ local function GetRealmsList()
 end
 
 local function GetCharacterItemCount(character, searchedID)
+	local getVoidStorageItemCount = DataStore.GetMethodOwner and DataStore:GetMethodOwner("GetVoidStorageItemCount") and DataStore.GetVoidStorageItemCount
+	local getReagentBankItemCount = DataStore.GetMethodOwner and DataStore:GetMethodOwner("GetReagentBankItemCount") and DataStore.GetReagentBankItemCount
+
 	itemCounts[1], itemCounts[2] = DataStore:GetContainerItemCount(character, searchedID)
 	itemCounts[2] = itemCounts[2] + DataStore:GetPlayerBankItemCount(character, searchedID)
 	itemCounts[3] = DataStore.GetVoidStorageItemCount and DataStore:GetVoidStorageItemCount(character, searchedID) or 0
